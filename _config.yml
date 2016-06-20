@@ -1,5 +1,5 @@
 # Site settings
-title: The blog of Ozz!
+title: Ozznotes
 description: >
   This is a blog with random OpenStack and Linux related notes so I don't
   forget what I did.
@@ -10,7 +10,7 @@ baseurl: '/'
 
 author:
   name: 'Juan Antonio "Ozz" Osorio Robles'
-  #email: 
+  #email:
   twitter_username: jaosorior
   github_username:  JAORMX
   linkedin_username:  jaosorior
