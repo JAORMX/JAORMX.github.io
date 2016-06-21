@@ -1275,7 +1275,8 @@ hr {
 	color: #FFF;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4); }
 	.panel-inverted a {
-		color: #FFF; }
+		color: #FFF;
+    }
 
 .cover-navigation {
 	margin-top: 10px; }
@@ -1572,7 +1573,13 @@ input[type="tel"] {
 
 	.panel-cover__description {
 		margin: 0 10px;
-		font-size: .9em; }
+		font-size: .9em;
+    }
+
+	.panel-cover__description a {
+		text-decoration: underline;
+		font-weight: bold;
+    }
 
 	.navigation--social {
 		margin-top: 5px;
