@@ -2,7 +2,10 @@
 title: Ozznotes
 description: >
   This is a blog with random OpenStack and Linux related notes so I don't
-  forget what I did.
+  forget things.
+
+  If you find something inaccurate or that could be fixed, please file a bug
+  report <a href="https://github.com/JAORMX/JAORMX.github.io/issues">here.</a>
 url: 'http://jaormx.github.io'
 baseurl: '/'
 # google_analytics: 'UA-XXXXXX-X'
