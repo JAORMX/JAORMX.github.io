@@ -1,15 +1,15 @@
 ---
 layout: post
-title:  "Deploying latest TripleO using Tripleo-quickstart"
+title:  "Deploying latest TripleO using TripleO-quickstart"
 date:   2016-06-21 10:13:03 +0300
 categories: tripleo openstack
 ---
 
 ### Preface (you may skip this)
 
-I've been working with TripleO and somehow setting my development environment
-is usually quite painful. Mostly because I hadn't been taking notes and always
-have to research again how to do it.
+I've been working with [TripleO][tripleo] and somehow setting my development
+environment is usually quite painful. Mostly because I hadn't been taking notes
+and always have to research again how to do it.
 
 So in honor of the title of this blog; finally I will note it down.
 
@@ -110,6 +110,7 @@ rm -f overcloud-full.qcow2
 And that's that! The new images should be registered in the undercloud's
 Glance, and you should be ready to go!
 
+[tripleo]: http://tripleo.org/index.html
 [inlunch]: https://github.com/jistr/inlunch
 [quickstart-repo]: https://github.com/openstack/tripleo-quickstart
 [config-dir]: https://github.com/openstack/tripleo-quickstart/tree/master/config/general_config
