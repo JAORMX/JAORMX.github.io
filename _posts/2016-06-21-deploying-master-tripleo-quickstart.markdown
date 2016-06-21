@@ -92,7 +92,23 @@ yum update -y
 ./tripleo-ci/scripts/tripleo.sh --undercloud
 {% endhighlight %}
 
-Currently here I'm getting an error... gotta see what's going on...
+At this point I encountered a weird error. With the keystone puppet manifest
+failing. By looking at the logs, I figured that the database wasn't being
+updated; which means that for some reason the resource keystone::db::sync was
+not receiving a refresh. So after running *keystone-manage db_sync* manually, I
+was able to get the undercloud deployment command to work.
+
+Besides a newer undercloud, I want my overcloud images to be updated:
+
+{% highlight bash %}
+# Remove old overcloud image from home directory
+rm -f overcloud-full.qcow2
+# Rebuild and re-deploy overcloud images
+./tripleo-ci/scripts/tripleo.sh --overcloud-images
+{% endhighlight %}
+
+And that's that! The new images should be registered in the undercloud's
+Glance, and you should be ready to go!
 
 [inlunch]: https://github.com/jistr/inlunch
 [quickstart-repo]: https://github.com/openstack/tripleo-quickstart
