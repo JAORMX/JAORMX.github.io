@@ -87,7 +87,7 @@ git clone https://git.openstack.org/openstack-infra/tripleo-ci
 # Install the repo with the latest package versions in the present system.
 ./tripleo-ci/scripts/tripleo.sh --repo-setup
 # Update your system
-yum update -y
+sudo yum update -y
 # Update your undercloud
 ./tripleo-ci/scripts/tripleo.sh --undercloud
 {% endhighlight %}
