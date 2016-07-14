@@ -48,3 +48,4 @@ if __name__ == '__main__':
     file_path = get_file_path(format_title(title))
     content = get_rendered_content(title)
     write_post(content, file_path)
+    print(file_path)
