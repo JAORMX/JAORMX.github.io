@@ -63,13 +63,15 @@ There are several configurations already made which you can use in the
 All this is quite nice already. Problem is, for a dev-environment, I want to
 use master.
 
-Now, I can see there are several options for the releases, so there exists
-master and master-tripleo.
+Now, I can see there are several options for the releases, which can be found
+in the _config/release_ directory. The options are:
+
+    liberty.yml  master-tripleo.yml  master.yml  mitaka.yml
 
 I didn't get master-tripleo to work. So I guess 'master' it is.
 
 {% highlight bash %}
-./quickstart.sh --config config/general_config/ha.yml --no-clone $HOST master
+./quickstart.sh --config config/general_config/ha.yml -R master --no-clone $HOST
 {% endhighlight %}
 
 This will leave you with a fairly new and working undercloud.
