@@ -72,7 +72,7 @@ that was created in FreeIPA. So, with this in mind, we can do the enrollment:
 sudo yum install -y ipa-client
 # Enroll host to FreeIPA
 sudo ipa-client-install --server ipa.walrusdomain --password=MySecret \
-    --domain=walrusdomain --unatended
+    --domain=walrusdomain --unattended
 {% endhighlight %}
 
 Once this is done, in FreeIPA we can now see the following:
