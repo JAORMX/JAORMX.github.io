@@ -11,10 +11,14 @@ something of the sort. I decided to setup a simple heat template that will do
 this. So I have a [temporary repository][temp-repo] where I'm doing the work.
 
 Basically what's going on there is that I made a stack that will be used on the
-AllNodesExtraConfig hook in tripleo. This stack will in turn run a script that
-gets an OTP, the domain managed by FreeIPA and the address or hostname of the
-FreeIPA server. With this, we first install the ipa-client package, do the
-enrollment, and finally get the kerberos ticket.
+[node type]ExtraConfigPre hook in tripleo. This stack will in turn run a
+script that gets an OTP, the domain managed by FreeIPA and the address or
+hostname of the FreeIPA server. With this, we first install the ipa-client
+package, do the enrollment, and finally get the kerberos ticket. Also, since
+we need to be aware of the domain when running the ipa-client installation, we
+check if the domain was set already, and if it isn't we set it up. By default
+we do this only for controllers, but the script can also add a hook for the
+computes if a flag is set.
 
 To use it we need to run a little script first which will generate a heat
 environment file that we can then use to add that stack to the hook. So, on
@@ -75,6 +79,14 @@ ipa service-add haproxy/overcloud.$DOMAIN --force
 
 # Get overcloud nodes to manage haproxy service for the overcloud VIP host
 ipa service-add-host haproxy/overcloud.$DOMAIN --hosts=overcloud-controller-{0..2}.$DOMAIN
+{% endhighlight %}
+
+Note that the compute nodes might need to be enrolled too, depending on your
+usecase. In our use-case, the compute nodes need to trust FreeIPA as a CA. So
+we might as well enroll them too:
+
+{% highlight bash %}
+ipa host-add overcloud-novacompute-0.$DOMAIN --password=$SECRET --force
 {% endhighlight %}
 
 With all this set up, I ran these commands on the overcloud nodes... but this
