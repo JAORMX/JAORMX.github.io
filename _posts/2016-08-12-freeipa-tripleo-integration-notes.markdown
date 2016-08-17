@@ -48,6 +48,11 @@ FreeIPA. As a bonus I'll also create the undercloud node, since, as I mentioned
 in a past blog post, we can now get the HAProxy public IP for the undercloud
 via FreeIPA.
 
+Note that I'm deploying a very basic HA setup, which consists of 3 controllers
+and 1 compute. So you'll notice that I create controllers from 0 to 2, and
+just a novacompute number 0. You need to adjust these values according to your
+deployment.
+
 ## FreeIPA setup
 
 I define the following environment variables for convenience:
@@ -89,14 +94,16 @@ we might as well enroll them too:
 ipa host-add overcloud-novacompute-0.$DOMAIN --password=$SECRET --force
 {% endhighlight %}
 
-With all this set up, I ran these commands on the overcloud nodes... but this
-is pretty much what the heat stack already does:
+## Individual overcloud node setup
 
-install freeipa client on each node
+With all the above set up, I ran these commands on the overcloud nodes... but
+this is pretty much what the heat stack already does:
+
+Install freeipa client on each node
 
     sudo yum install -y ipa-client
 
-enroll each controller
+Enroll each controller
 
 {% highlight bash %}
 sudo ipa-client-install --server $IPA_SERVER \
@@ -120,5 +127,36 @@ SUCCESS! We can do this for every overcloud node.
 
 With the stack we can already do the enrollment on the overcloud nodes, what I
 need now is to get the certificate request to happen in the service profiles.
+
+## Environment/Stack usage
+
+So, in a tripleo-quickstart deployment lets clone the freeipa-tripleo-incubator
+repo, and run the script:
+
+{% highlight bash %}
+# Clone the repo
+git clone https://github.com/JAORMX/freeipa-tripleo-incubator.git
+# Move to that directory
+cd freeipa-tripleo-incubator
+# Run script to generate environment file
+./create_freeipa_enroll_envfile.py -w $SECRET -d $DOMAIN -s $IPA_SERVER \
+    --add-computes
+{% endhighlight %}
+
+This will generate a yaml file which we can use as an environment file for
+Heat. This file is called _freeipa-enroll.yaml_ by default. Lets use that in
+the overcloud deploy. Note that since I'm using quickstart, I use the script
+that's provided by default, which is overcloud-deploy.sh.
+
+{% highlight bash %}
+# Move back to home directory
+cd
+# issue overcloud deploy with the environment we want
+./overcloud-deploy.sh -e freeipa-tripleo-incubator/freeipa-enroll.yaml
+{% endhighlight %}
+
+This will then do a standard deploy, but if we set up everything correctly, our
+nodes will now have a keytab and will be able to request certificates via
+certmonger with FreeIPA as a CA.
 
 [temp-repo]: https://github.com/JAORMX/freeipa-tripleo-incubator
