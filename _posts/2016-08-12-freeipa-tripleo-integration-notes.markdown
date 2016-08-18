@@ -2,7 +2,7 @@
 layout: post
 title:  "FreeIPA TripleO integration notes"
 date:   2016-08-12 13:53:22 +0300
-categories: tripleo openstack
+categories: tripleo freeipa
 ---
 
 So I'm trying to get the overcloud nodes from TripleO to enroll to FreeIPA. And
