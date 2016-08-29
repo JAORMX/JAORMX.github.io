@@ -21,13 +21,13 @@ directory you would expect. Usually you have your installed puppet modules
 in _/etc/puppet/modules_, but in our case, that directory only contains
 symlinks. So, since they are symlinks, using virt-copy-in will not work in this
 case. So we must know that for RDO there is the convention to put the
-OpenStack-related puppet modules in _/opt/stack/puppet-modules_.  So knowing
-this we can finally copy our modules:
+OpenStack-related puppet modules in _/usr/share/openstack-puppet/modules/_.
+So knowing this we can finally copy our modules:
 
 {% highlight bash %}
-virt-copy-in -a overcloud-full.qcow2 \   # your local overcloud image
-    puppet-tripleo/manifests/ \          # your local puppet manifests
-    /opt/stack/puppet-modules/tripleo/   # the destination directory
+virt-copy-in -a overcloud-full.qcow2 \            # your local overcloud image
+    puppet-tripleo/manifests/ \                   # your local puppet manifests
+    /usr/share/openstack-puppet/modules/tripleo/  # the destination directory
 {% endhighlight %}
 
 To verify that this worked, we can use guestfish:
