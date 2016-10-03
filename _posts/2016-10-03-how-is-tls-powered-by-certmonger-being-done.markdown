@@ -90,7 +90,7 @@ certificate. Setting this in practice is a matter of setting the
 ``generate_service_certificates`` flag on hiera to ``true``, specifying the
 specs for the certificate to generate using the ``certificates_specs``
 parameter for the haproxy profile (which one can set via hiera with the
-``tripleo::profile::base::haproxy::certificates_specs`` key, telling
+``tripleo::profile::base::haproxy::certificates_specs`` key), telling
 certmonger which CA to talk to with the ``certonger_ca`` hiera key, and
 finally, telling HAProxy where the relevant PEM file is located via the
 ``service_certificate`` parameter of the haproxy manifest (which is
