@@ -180,3 +180,21 @@ We already have `mod_ssl` installed in the overcloud nodes (since it's part of
 the image) so enabling TLS with the paths that come from the specs is just a
 matter of passing those paths to the vhost resource, and puppet will do its
 work.
+
+## Note on the advantage of using specs
+
+Unfortunately, not everyone will want to use certmonger for requesting and
+managing certificates. So using the "specs" based approach that I described
+above has a side-effect that can address this. If a deployer REALLY doesn't
+want to use certmonger. It's possible to pass the certificates and keys
+manually using an ExtraConfigPre hook in TripleO that copies the certificates
+and keys to appropriate locations (which could be implemented in a similar
+fashion as we do in TripleO for the public certificate for HAProxy). Then, the
+specs that tell the services where to find those certificates and keys can be
+passed via hieradata. And finally, we need to be sure that we're not setting
+the `generate_service_certificates` flag, since this will cause puppet to try
+to use those specs to call certmonger. Furthermore, some things that need to be
+kept in mind is that a specific format needs to be used for the specs depending
+on the service and the network; also, you now have to run the overcloud deploy
+every time you need to update the certificates, since they won't be managed by
+certmonger.
