@@ -10,7 +10,7 @@ everything has merged yet to the project, this is an overview of how things are
 being done, which I hope helps reviewers have an easier time checking it out.
 And me sanity-checking the approach.
 
-## So what's this about?
+# So what's this about?
 
 The point is to try to get all the endpoints to listen for TLS connections
 everywhere that's possible to do so. So this will include the OpenStack
@@ -81,9 +81,9 @@ FreeIPA does not issue certificates for IP addresses, so for the overcloud we
 will need to use FQDNs for each of the endpoints, and these will be used in
 both the CNs and the SubjectAltNames of the certificates.
 
-## Approach
+# Approach
 
-### HAProxy
+## HAProxy
 
 The undercloud's HAProxy already can use certmonger for getting the public
 certificate. Setting this in practice is a matter of setting the
@@ -145,3 +145,38 @@ Finally, we have to remember to set the endpoints for the services to https,
 which we do by having an environment that sets the values of the EndpointMap to
 https in all endpoints, and uses CLOUDNAME for all the endpoints (since we need
 to use FQDNs and not IP addresses).
+
+## OpenStack services
+
+Some services are already running over Apache HTTPd, so these we can easily
+start running with TLS enabled. However, We don't want to run cryptographic
+operations in Python. So we'll do these services separately.
+
+### Services running over Apache HTTPd
+
+Taking as a reference the same approach we used for HAProxy, we'll do something
+similar here. We'll re-use the `generate_service_certificates` flag and base
+the certificate provisioning on hashes which we refer as specs. However,
+we'll also add a flag that tells the services whether to get the paths of the
+certificates and pass those to the services or not. We'll call this flag
+`enable_internal_tls` and pass it via hiera.
+
+Now, since httpd does take a separate file for the certificate and the
+key, the specs don't need the `service_pem` key. So our spec for the
+certificates will look as the following:
+
+    httpd-<NETWORK name>:
+      service_certificate: '/etc/pki/tls/certs/httpd-<NETWORK name>.crt'
+      service_key: '/etc/pki/tls/private/httpd-<NETWORK name>.key'
+      hostname: "%{::fqdn_<NETWORK name>}"
+      principal: "HTTP/%{::fqdn_<NETWORK name>}"
+
+Noting that we need a certificate per-network since some OpenStack services
+also listen on networks different than internal-api. Thankfully, we do have
+facts in puppet to get the hostname for the node depending on the network, so
+we use those in the specs (we change this to hiera in the near future).
+
+We already have `mod_ssl` installed in the overcloud nodes (since it's part of
+the image) so enabling TLS with the paths that come from the specs is just a
+matter of passing those paths to the vhost resource, and puppet will do its
+work.
