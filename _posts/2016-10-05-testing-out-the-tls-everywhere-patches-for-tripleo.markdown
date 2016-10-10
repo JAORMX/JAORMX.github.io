@@ -163,6 +163,9 @@ also securing apache). So lets install those into the images:
     # Upload images to undercloud's glance
     openstack overcloud image upload --update-existing
 
+Note that to get the virt-customize utility, you need to install
+``libguestfs-tools`` (in CentOS).
+
 ### Heat environment files
 
 Our overcloud will need several things for the FreeIPA enrollment:
