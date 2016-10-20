@@ -227,4 +227,4 @@ reflected in the keystone catalog):
 
 And if we want to enable TLS in the internal network too, we can include this:
 
-    tripleo-heat-templates/environments/services/internal-tls-certmonger.yaml
+    tripleo-heat-templates/environments/enable-internal-tls.yaml
