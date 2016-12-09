@@ -58,7 +58,7 @@ For this, lets define two environment variables that we'll use for this:
 
 {% highlight bash %}
 
-export SECRET=MySecret
+export SECRET=$(uuidgen)
 export DOMAIN=walrusdomain
 
 {% endhighlight %}
@@ -66,6 +66,12 @@ export DOMAIN=walrusdomain
 Where SECRET will be the OTP that we'll use for the nodes to authenticate in
 the enrollment phase, and DOMAIN is the domain that we already set for FreeIPA
 (or the kerberos realm).
+
+Note that the SECRET should preferably not be a human readable password, so in
+this case I'm using a UUID. This should be disposable anyway and is only used
+for enrollment. Also note that you'll need to remember the UUID, since you'll
+need to use the same one when you create the environment files to enroll the
+overcloud nodes.
 
 To add the undercloud node we can do the following:
 
@@ -126,7 +132,7 @@ enroll the undercloud node with the following steps:
 
 {% highlight bash %}
 
-export SECRET=MySecret
+export SECRET='Something something'   #here goes the UUID from before
 
 sudo yum install -y ipa-client
 sudo ipa-client-install --server $IPA_SERVER \
