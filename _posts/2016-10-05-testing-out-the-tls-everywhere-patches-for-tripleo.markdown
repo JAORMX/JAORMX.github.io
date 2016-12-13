@@ -140,7 +140,7 @@ sudo ipa-client-install --server $IPA_SERVER \
 
 {% endhighlight %}
 
-And we're set! Now we can authenticate byu using the keytab to get a kerberos
+And we're set! Now we can authenticate by using the keytab to get a kerberos
 ticket:
 
 {% highlight bash %}
@@ -182,55 +182,47 @@ Our overcloud will need several things for the FreeIPA enrollment:
   kerberos realm or domain)
 * We need to tell the nodes to enroll somehow
 
-freeipa-tripleo-incubator has another script for this, thankfully:
+tripleo-common includes a script for this:
 
 {% highlight bash %}
 
-# Clone the repo
-git clone https://github.com/JAORMX/freeipa-tripleo-incubator.git
-# Move to that directory
-cd freeipa-tripleo-incubator
 # Run script to generate environment file
-./create_freeipa_enroll_envfile.py -w $SECRET -d $DOMAIN -s $IPA_SERVER \
-    --add-computes
+create_freeipa_enroll_envfile.py -w $SECRET -d $DOMAIN -s $IPA_SERVER
 
 {% endhighlight %}
 
-This will output two environment files:
+This will output an environment file:
 
-* cloud-names.yaml : This files contain the overrides for the VIP host names
-  which we'll use.
 * freeipa-enroll.yaml : This contains the necessary info we need for the
-  enrollment, as well as an override of the controller and compute
-  ExtraConfigPre hook. This hook will execute the enrollment the same way we
-  did it for the undercloud.
+  enrollment, as well as an override for every node (of all roles) using the
+  NodeTLSCAData hook. This hook will execute the enrollment the same way we
+  did it for the undercloud. On the other hand, this environment file also
+  contains the overrides for the VIP host names which we'll use.
 
 Now, as for the environment files needed that should be available in
-tripleo-heat-templates. These are the ones introduced by the TLS-everywhere
-commits:
+tripleo-heat-templates. These are the relevant environment files:
 
 This tells certmonger to request the certificate for the public endpoint of
 HAProxy:
 
     tripleo-heat-templates/environments/services/haproxy-public-tls-certmonger.yaml
 
-Now, you could use a certificate and key and inject those since this is what we
-already do for the overcloud... but, just so you know, there will be support
-for using FreeIPA there too.
+Now, you could use a certificate and key and inject those as it's always been
+done for the overcloud. However, for whoever needs it, there is FreeIPA support
+there as well
 
-This tells certmonger to request certificates for the rest of the internal
-endpoints (which correspond to the VIPs for the different networks):
-
-    tripleo-heat-templates/environments/services/haproxy-internal-tls-certmonger.yaml
-
-It will also set the necessary configuration in HAProxy to serve the
-certificate/key for the endpoints.
-
-This tells TripleO to set the endpoints to use TLS everywhere (it will be
-reflected in the keystone catalog):
-
-    tripleo-heat-templates/environments/tls-everywhere-endpoints-dns.yaml
-
-And if we want to enable TLS in the internal network too, we can include this:
+And to enable TLS in the internal network too, we can include this:
 
     tripleo-heat-templates/environments/enable-internal-tls.yaml
+
+This tells TripleO that the internal endpoints for HAProxy need to use TLS as
+well (and will attempt to get certificates for thsoe as well using certmonger),
+but also that the traffic in the internal networks needs to use TLS too. So,
+OpenStack services running over httpd get this in a fairly simple manner.
+However, services that don't run httpd (mainly glance and swift) will have
+mod_proxy in front of them to terminate TLS.
+
+Finally, This tells TripleO to set the endpoints to use TLS everywhere (it will
+be reflected in the keystone catalog):
+
+    tripleo-heat-templates/environments/tls-everywhere-endpoints-dns.yaml
