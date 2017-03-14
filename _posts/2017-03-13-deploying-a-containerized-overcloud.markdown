@@ -38,3 +38,8 @@ Do your regular openstack deploy but add the following environments:
 
 * tripleo-heat-templates/environments/docker.yaml
 * $HOME/containers-default-parameters.yaml
+
+## Note
+
+Currently (now that I'm writing this post) HA deployments are not available. So
+don't try to use the pacemaker environment cause that will fail.
