@@ -5,7 +5,7 @@ date:   2017-03-20 15:15:47 +0200
 categories: tripleo openstack
 ---
 
-Note that the following instructions are for Fedora as that's what I'm
+Note that the following instructions are for Fedora 25 as that's what I'm
 currently running.
 
 ## Setup
@@ -193,6 +193,20 @@ To log into the keystone container. I can do the following:
 
     docker exec -ti keystone /bin/bash
 
+### Note about docker's storage
+
+At some point after writing this blog post I ran into the issue where I
+destroyed the kolla-ansible deployment and attempted to create it again, with
+it finally failing. This apparently was because of the kolla-toolbox container
+not finding the storage file it needed to.
+
+Talking to the kolla community I was pointed to [this blog recommending not to
+use the devicemapper driver][docker-blog]. And after following the
+recommendations there, using OverlayFS instead for my case, destroying the
+deployment and the images, and rebooting my system; I was able to deploy
+again successfully.
+
+
 ## References
 
 Special thanks to Adam Young. His blog has always been really useful!
@@ -205,3 +219,4 @@ The rest has been based on the [kolla][kolla] and
 [adam-blog]: http://adam.younglogic.com/2016/02/holla-kolla/
 [kolla]: https://docs.openstack.org/developer/kolla/image-building.html
 [kolla-ansible]: https://docs.openstack.org/developer/kolla-ansible/quickstart.html
+[docker-blog]: http://www.projectatomic.io/blog/2015/06/notes-on-fedora-centos-and-docker-storage-drivers/
