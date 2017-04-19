@@ -107,7 +107,118 @@ whatever you would like to do, and wait until it's done.
 
 ## Testing out live migration
 
-...
+Now that you have an environment set, make sure you can contact the overcloud
+via FQDNs (if not, you can run the overcloud-deploy-post.sh script in the
+**stack** user's home directory and it'll add the relevant entries to
+**/etc/hosts**.
+
+Now, we need a VM that's running in our overcloud in order to try to migrate
+it. For this, I merely used the overcloud-validate.sh script, which spawns a
+VM and creates the networks. However, I modified it so it won't clean up after
+it's done.
+
+with the overcloud's credentials we should check what hypervisors we have
+available.
+
+{% highlight bash %}
+(overcloud)$ openstack hypervisor list
++----+-------------------------------------+-----------------+--------------+-------+
+| ID | Hypervisor Hostname                 | Hypervisor Type | Host IP      | State |
++----+-------------------------------------+-----------------+--------------+-------+
+|  1 | overcloud-novacompute-1.example.com | QEMU            | 192.168.24.7 | up    |
+|  2 | overcloud-novacompute-0.example.com | QEMU            | 192.168.24.9 | up    |
++----+-------------------------------------+-----------------+--------------+-------+
+{% endhighlight %}
+
+Having a VM running, we should inspect it to see what hypervisor it's running
+on:
+
+{% highlight bash %}
+(overcloud)$ openstack server show Server1
++-------------------------------------+-------------------------------------------+
+| Field                               | Value                                     |
++-------------------------------------+-------------------------------------------+
+| OS-DCF:diskConfig                   | MANUAL                                    |
+| OS-EXT-AZ:availability_zone         | nova                                      |
+| OS-EXT-SRV-ATTR:host                | overcloud-novacompute-0.example.com       |
+| OS-EXT-SRV-ATTR:hypervisor_hostname | overcloud-novacompute-0.example.com       |
+| OS-EXT-SRV-ATTR:instance_name       | instance-00000001                         |
+| OS-EXT-STS:power_state              | Running                                   |
+| OS-EXT-STS:task_state               | None                                      |
+| OS-EXT-STS:vm_state                 | active                                    |
+| OS-SRV-USG:launched_at              | 2017-04-19T07:06:29.000000                |
+| OS-SRV-USG:terminated_at            | None                                      |
+| accessIPv4                          |                                           |
+| accessIPv6                          |                                           |
+| addresses                           | default-net=192.168.2.103, 192.168.24.104 |
+| config_drive                        |                                           |
+| created                             | 2017-04-19T07:06:16Z                      |
+| flavor                              | pingtest_stack-test_flavor-lgz6q2t5zq4l...|
+| hostId                              | 4a961344ed67fb4ec77676f6fa719d805ae1162...|
+| id                                  | 67e21344-c78e-42b7-b1b9-fabc08beb9fc      |
+| image                               |                                           |
+| key_name                            | pingtest_key                              |
+| name                                | Server1                                   |
+| progress                            | 0                                         |
+| project_id                          | e6f9e9c9df0a4c5a933fc479fabba6fc          |
+| properties                          |                                           |
+| security_groups                     | name='pingtest-security-group'            |
+| status                              | ACTIVE                                    |
+| updated                             | 2017-04-19T07:06:29Z                      |
+| user_id                             | e30fd0f4b59b4e309e483b391803139b          |
+| volumes_attached                    | id='b5f799ac-a09e-4670-839c-5cd71a15c467' |
++-------------------------------------+-------------------------------------------+
+{% endhighlight %}
+
+It's running on **overcloud-novacompute-0.example.com** as pointed out by the
+``OS-EXT-SRV-ATTR:hypervisor_hostname`` entry.
+
+{% highlight bash %}
+openstack server migrate --wait --live overcloud-novacompute-1.example.com Server1
+{% endhighlight %}
+
+After the migration is complete, you should see the changes reflected:
+
+{% highlight bash %}
+$ openstack server show Server1
++-------------------------------------+-------------------------------------------+
+| Field                               | Value                                     |
++-------------------------------------+-------------------------------------------+
+| OS-DCF:diskConfig                   | MANUAL                                    |
+| OS-EXT-AZ:availability_zone         | nova                                      |
+| OS-EXT-SRV-ATTR:host                | overcloud-novacompute-1.example.com       |
+| OS-EXT-SRV-ATTR:hypervisor_hostname | overcloud-novacompute-1.example.com       |
+| OS-EXT-SRV-ATTR:instance_name       | instance-00000002                         |
+| OS-EXT-STS:power_state              | Running                                   |
+| OS-EXT-STS:task_state               | None                                      |
+| OS-EXT-STS:vm_state                 | active                                    |
+| OS-SRV-USG:launched_at              | 2017-04-19T08:20:58.000000                |
+| OS-SRV-USG:terminated_at            | None                                      |
+| accessIPv4                          |                                           |
+| accessIPv6                          |                                           |
+| addresses                           | default-net=192.168.2.103, 192.168.24.108 |
+| config_drive                        |                                           |
+| created                             | 2017-04-19T08:20:46Z                      |
+| flavor                              | pingtest_stack-test_flavor-ihsr2xk3hr6c...|
+| hostId                              | dde8b1db86db6c7ce9f11af7284d6b865525490...|
+| id                                  | da5dc53f-5989-4873-a55d-1e4418fa4b04      |
+| image                               |                                           |
+| key_name                            | pingtest_key                              |
+| name                                | Server1                                   |
+| progress                            | 0                                         |
+| project_id                          | e6f9e9c9df0a4c5a933fc479fabba6fc          |
+| properties                          |                                           |
+| security_groups                     | name='pingtest-security-group'            |
+| status                              | ACTIVE                                    |
+| updated                             | 2017-04-19T08:22:47Z                      |
+| user_id                             | e30fd0f4b59b4e309e483b391803139b          |
+| volumes_attached                    | id='658114dd-6b56-44ce-8a32-bebf18cf4bb5' |
++-------------------------------------+-------------------------------------------+
+{% endhighlight %}
+
+You can try doing this while having an active ssh connection to the server,
+pinging the IP address, and even deploying an application and poking it. Stuff
+should still work :D.
 
 [libvirt-tls-doc]: http://wiki.libvirt.org/page/TLSSetup
 [libvirt-tls-reference]: http://libvirt.org/remote.html#Remote_libvirtd_configuration
