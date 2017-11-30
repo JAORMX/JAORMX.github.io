@@ -4,7 +4,6 @@ title:  "TripleO IPSEC setup"
 date:   2017-11-30 12:14:55 +0200
 categories: tripleo openstack
 ---
-
 For some time in June we looked into adding encryption in all networks to
 TripleO. At the time, TLS everywhere wasn't available, so we looked into IPSEC
 as an alternative. Recently, we've been looking into formalizing that work and
