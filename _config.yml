@@ -26,6 +26,6 @@ kramdown:
   hard_wrap: false
 
 plugins: ['jekyll-paginate']
-exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
+exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png', 'create_post.py']
 
 theme: jekyll-theme-midnight
