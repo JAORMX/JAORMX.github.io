@@ -8,15 +8,10 @@ description: >
   report <a href='https://github.com/JAORMX/JAORMX.github.io/issues'>here.</a>
 url: 'http://jaormx.github.io'
 baseurl: '/'
-# google_analytics: 'UA-XXXXXX-X'
-# disqus_shortname: 'your-disqus-name'
 
-author:
-  name: 'Juan Antonio "Ozz" Osorio Robles'
-  #email:
-  twitter_username: jaosorior
-  github_username:  JAORMX
-  linkedin_username:  jaosorior
+twitter_username: jaosorior
+github_username:  JAORMX
+linkedin_username:  jaosorior
 
 defaults:
   -
@@ -27,7 +22,6 @@ defaults:
         layout: 'post'
 
 # Build settings
-destination: _site
 paginate: 10
 permalink: /:year/:title/
 markdown: kramdown
