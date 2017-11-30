@@ -13,14 +13,6 @@ twitter_username: jaosorior
 github_username:  JAORMX
 linkedin_username:  jaosorior
 
-defaults:
-  -
-    scope:
-      path: ''
-      type: 'posts'
-    values:
-        layout: 'post'
-
 # Build settings
 paginate: 10
 permalink: /:year/:title/
