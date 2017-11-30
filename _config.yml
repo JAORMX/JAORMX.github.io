@@ -28,4 +28,4 @@ kramdown:
 plugins: ['jekyll-paginate']
 exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
 
-theme: jekyll-theme-hacker
+theme: jekyll-theme-midnight
