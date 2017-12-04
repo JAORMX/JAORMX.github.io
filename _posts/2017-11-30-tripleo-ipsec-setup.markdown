@@ -228,6 +228,8 @@ Where is this magical thing?
 All the work is currently in [github][repo], but we're looking into making it
 officially part of TripleO, under the OpenStack umbrella.
 
+**UPDATE**: It's now [officially][openstack-repo] part of OpenStack
+
 Future work
 ===========
 
@@ -250,3 +252,4 @@ certificates into the mix, and even use certificates provided by FreeIPA.
 [pacemaker-colocation]: https://clusterlabs.org/doc/en-US/Pacemaker/1.1/html/Pacemaker_Explained/s-resource-colocation.html
 [dynamic-inventory]: http://jaormx.github.io/2017/run-ansible-playbook-on-tripleo-nodes/
 [repo]: https://github.com/JAORMX/tripleo-ipsec
+[openstack-repo]: https://review.openstack.org/#/admin/projects/openstack/tripleo-ipsec
