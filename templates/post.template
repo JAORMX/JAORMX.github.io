@@ -1,0 +1,7 @@
+---
+layout: post
+title:  "{{ title }}"
+date:   {{ current_day }}
+categories: {{ categories }}
+---
+
