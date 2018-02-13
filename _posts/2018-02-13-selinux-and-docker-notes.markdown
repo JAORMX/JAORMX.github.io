@@ -27,31 +27,21 @@ Security Options: seccomp
 
 {% endhighlight %}
 
-To enable it, you can modify the
-``/usr/lib/systemd/system/docker.service``. The ``ExecStart`` entry will look
-similar to this:
+To enable it, you need to modify the ``/etc/sysconfig/docker`` file, which you
+can use to enable SELinux for docker. In this file you'll notice the
+``$OPTIONS`` variable defined there, where you can append the relevant option
+as follows:
 
 {% highlight bash %}
-ExecStart=/usr/bin/dockerd-current \
-          --add-runtime docker-runc=/usr/libexec/docker/docker-runc-current \
-          --default-runtime=docker-runc \
-          --exec-opt native.cgroupdriver=systemd \
-          --userland-proxy-path=/usr/libexec/docker/docker-proxy-current \
-          --selinux-enabled \
-          $OPTIONS \
-          $DOCKER_STORAGE_OPTIONS \
-          $DOCKER_NETWORK_OPTIONS \
-          $ADD_REGISTRY \
-          $BLOCK_REGISTRY \
-          $INSECURE_REGISTRY\
-          $REGISTRIES
+
+OPTIONS="--log-driver=journald --signature-verification=false --selinux-enabled"
+
 {% endhighlight %}
 
-After reloading the systemd units and restart docker:
+After restarting docker:
 
 {% highlight bash %}
 
-$ systemctl daemon-reload
 $ systemctl restart docker
 
 {% endhighlight %}
@@ -295,3 +285,4 @@ References
 * [https://www.projectatomic.io/blog/2017/02/selinux-policy-containers/]()
 * [http://www.projectatomic.io/blog/2015/06/using-volumes-with-docker-can-cause-problems-with-selinux/]()
 * [https://docs.docker.com/storage/bind-mounts/#configure-the-selinux-label]()
+* Thanks Jason Brooks, who helped via [twitter](https://twitter.com/jasonbrooks/status/963442252642058240)
