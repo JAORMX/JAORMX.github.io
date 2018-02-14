@@ -17,8 +17,10 @@ Here are some of the things I learned.
 Enabling SElinux for docker containers
 --------------------------------------
 
-Docker doesn't have the ``--selinux-enabled`` flag by default in CentOS
-7.4.1708. To verify this, you can run the following command:
+Docker has the ``--selinux-enabled`` flag by default in CentOS 7.4.1708.
+However, in case your image or your configuration management tool is disabling
+it, as was the case for our puppet module verify this, you verify by running
+the following command:
 
 {% highlight bash %}
 
