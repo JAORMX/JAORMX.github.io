@@ -184,7 +184,7 @@ dynamic configuration via gRPC. This is called xDS API, and is what control
 planes need to implement in order to take Envoy into use (this is what Istio
 does, for instance). So, in order for us to take it into use in OpenStack, we
 would need to either expand and run their
-[reference XDS API](https://github.com/envoyproxy/go-control-plane) or
+[reference xDS API](https://github.com/envoyproxy/go-control-plane) or
 implement our own (which is what other folks seem to be doing for some reason).
 
 A nice feature of Envoy is it's support for hot-restarts which is envoy's
@@ -194,3 +194,75 @@ can see this feature to be very useful for our updates/upgrades in TripleO.
 Currently, it seems to me that if we want to experiment with proxies to try to
 bring service mesh benefits into TripleO, starting with Envoy and some services
 would be a good start.
+
+SPIFFE
+------
+
+There were a lot of talks about SPIFFE/SPIRE in Kubecon. Given that it's a
+security component and it seems to be taken into use by several other projects,
+I decided to take a look at it.
+
+SPIFFE's main goal is to establish trust between workloads and have the
+workload answer the question "who am I?". So basically it aims to establish the
+workload's identity. SPIFFE is an open specification which defines the overall
+mechanisms and how the API should look like. It introduces a couple of
+concepts:
+
+* SPIFFE ID
+
+  - It's how we identify the given workload
+
+  - Takes the form of a URL such as the following:
+    spiffe://acme.com/billing/payments
+
+  - acme.com would be the trust domain (could be a kerberos realm?)
+
+  - billing/payments would identify the workload.
+
+* SVID (SPIFFE Verifiable Identity Document)
+
+  - The current proposal is an x509 certificate that contains your SPIFFE ID
+    as part of the certificate's SAN.
+
+  - It's meant to be a specification of the minimum requirements for a
+    verifiable document, x509 is one implementation, but there could be more.
+
+  - The advantage of the SVID being an x509 certificate, is that it could
+    effectively be used for TLS, which is what Istio is doing.
+
+SPIFFE then dictates ways that the workload could get its SVID, which is via
+customizable and deployer-defined attestation policies. The policies are
+executed by an agent that runs on every node, and there should be a central
+server that ultimately verifies the claims and provides the agents with the
+actual SVIDs.
+
+The team provided a reference implementation called SPIRE. This implements the
+SPIFFE specification and contains code for the agents and the server. There
+is already Vault support, and work on-going to hook up the server to HSMs.
+
+It communicates with the workloads via a unix domain socket, so there's no
+explicit authentication to communicate with the API. It is then the
+responsibility of the node-agent to check if the workload's request is actually
+valid. Which is where the attestation policies kick in.
+
+SPIRE already has customizable attestation policies which we could extend, and
+it seems that some folks from VMWare already implemented a Kerberos-based
+[attestation plugin](https://github.com/spiffe/kerberos-attestor) which ended
+up in very interesting conversations. I can definitely see that attestor being
+used with the kerberos instance provided by FreeIPA.
+
+Currently SPIRE uses short-lived certificates, but support for actual
+revocation is coming in later this year. There is still no decision as to what
+mechanism will be used (could be CRLs or OCSP).
+
+There is also another limitation, which is HA support. Currently SPIRE is
+implemented with SQLite and assumes one server node. How to get SPIRE to use a
+distributed database and make it scale is still an active problem the team is
+tackling.
+
+There will also be a public security audit of the code in the near future.
+
+Unfortuntely, even though Istio uses the SPIFFE specification for it's CA
+(Citadel), it doesn't use SPIRE, and instead contains its own implementation in
+the code-base. Asking around, it seems that the reason is to not lock in both
+project's speeds together; so this allows Istio to move at it's own pace.
