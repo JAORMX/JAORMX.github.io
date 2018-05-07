@@ -166,3 +166,31 @@ If we want to take the benefits of the service mesh into use in TripleO, it
 might be better to take a slower approach, and just take fewer components into
 use, instead of going with the full-blown solution. This lead me to take a
 deeper look into just using Envoy.
+
+Envoy
+-----
+
+Envoy is a magical proxy that folks have been using to enable service mesh
+architectures in their deployments. While it's not the only proxy out there, it
+seems to be getting a lot of momentum in the community.
+
+It supports proxying several protocols, which include: HTTP, HTTP/2, gRPC,
+MongoDB, Redis, among others. It'll also provide L3/L4 filtering, health
+checking and TLS termination. It also provides statistics (with statsd
+integration) and distributed tracing via plugins.
+
+For a long time it was configured with static files, but it now has support for
+dynamic configuration via gRPC. This is called xDS API, and is what control
+planes need to implement in order to take Envoy into use (this is what Istio
+does, for instance). So, in order for us to take it into use in OpenStack, we
+would need to either expand and run their
+[reference XDS API](https://github.com/envoyproxy/go-control-plane) or
+implement our own (which is what other folks seem to be doing for some reason).
+
+A nice feature of Envoy is it's support for hot-restarts which is envoy's
+ability to reload and even do a binary update without dropping connections. I
+can see this feature to be very useful for our updates/upgrades in TripleO.
+
+Currently, it seems to me that if we want to experiment with proxies to try to
+bring service mesh benefits into TripleO, starting with Envoy and some services
+would be a good start.
