@@ -159,13 +159,15 @@ would need to work on first in order to have it address our needs:
     VMs. So this doesn't necessarily help us.
 
 Even though we could run Istio without some components to have an easier setup,
-It seems to me that adopting it would take a significant amount of effort and
-time, which we (or at least me) don't have.
+It seems to me that adopting it would take a significant amount of effort.
 
 If we want to take the benefits of the service mesh into use in TripleO, it
 might be better to take a slower approach, and just take fewer components into
 use, instead of going with the full-blown solution. This lead me to take a
-deeper look into just using Envoy.
+deeper look into just using Envoy. This conclusion was also inspired by the
+recommendations in other talks in the conference that mentioned how other
+companies started adopting the service mesh: going for a cautious and
+thoughtful approach instead of a full-on migration.
 
 Envoy
 -----
@@ -266,3 +268,38 @@ Unfortuntely, even though Istio uses the SPIFFE specification for it's CA
 (Citadel), it doesn't use SPIRE, and instead contains its own implementation in
 the code-base. Asking around, it seems that the reason is to not lock in both
 project's speeds together; so this allows Istio to move at it's own pace.
+
+Open Policy Agent
+-----------------
+
+Open Policy Agent aims to unify policy configurations. It takes the form of an
+agent that your service communicates with in order to enforce the policy
+decision. It has it's own format to configure policies which the agent
+interprets.
+
+It seems to be getting some adoption, with integration with Istio and
+Kubernetes.
+
+The main reason I took a look into it, was because I thought it would be a nice
+way to get the centralized policy policy story going for OpenStack. This would
+require us to implement an OPA driver in oslo in order to do policy and have an
+agent running with each OpenStack service. Unfortunately it seems we would need
+to implement a control plane for OPA (centralized configuration), since
+currently only the agent is open source. So we would have an OpenStack specific
+control plane that can read the already-existing policy.json files and
+transforms them into OPA documents; these would then be taken into use by the
+agents. The separate agent approach would give us the advantage that we
+wouldn't need to reload OpenStack services in order to apply new policies
+(although this is not a very common operation). Another benefit would be to
+have the same policy format for Kubernetes and OpenStack.
+
+Conclusion
+----------
+
+The conference was great and gave me a lot of ideas that we could take into use
+in OpenStack. Although we might not use all of them (or even none of them, time
+will tell), I still learned a lot and got me very excited about the future in
+the cloud industry. I wish to see more interaction between the Cloud Native and
+the OpenStack communities, as I think there are a lot of convergence points
+where we could use the wisdom of both communities. I really hope I can attend
+again.
