@@ -1,0 +1,108 @@
+---
+layout: post
+title:  "Kubecon Copenhagen 2018"
+date:   2018-05-07 15:58:06 +0300
+categories: tripleo openstack kubernetes
+---
+
+Kubecon/CloudNativeCon Europe CPH from an OpenStack/TripleO point of view
+=========================================================================
+
+I recently had the opportunity to attend Kubecon/CloudNativeCon Europe in
+Copenhagen. Although the event was very Kubernetes oriented, I chose to focus
+on the general security bits of the conference, as well as the service-mesh
+related topics. This was with the following reasoning:
+
+* Given that we're aiming to containerize as much as we can from OpenStack, we
+  really need to catch up and take more container security practices into use.
+
+* A lot of problems that we're tackling on OpenStack are also being tackled in
+  the kubernetes/cloud native community. We should try to converge whenever
+  possible instead of trying to brew our own solutions.
+
+* The service mesh use-cases resonate very well with a lot of the security
+  user-stories that we've been working on lately.
+
+With this in mind, what I gathered from the different projects.
+
+Service mesh
+------------
+
+Lately I've been quite interested in the service-mesh topic since it's brought
+up by folks tackling the same issues we've been facing lately in OpenStack &
+TripleO.
+
+### Background
+
+The concept of a "service mesh" is the concept of offloading all the network
+interaction from the service itself to a layer that sits somewhere in the host.
+This layer usually takes the form of a proxy.  It can be in the form of a
+side-car container that runs with the application (so you'll have a proxy
+per-service), or it can run as a singleton in the host and catch all traffic
+that goes towards the applications. The proxy will then be aware of all the
+applications that are part of the "mesh", and handle load-balancing, service
+discovery, monitoring, policy, circuit breaking and it can even be your TLS
+proxy for the service(s).
+
+One important concept to understand is the separation between the control plane
+and the data plane. The control plane is how you configure the mesh itself
+(probably in the form of a service that has an API or a set of APIs for this
+purpose), and a data plane, which is handled by the proxy, and it's where all
+your application traffic flows. So, with this in mind, there are some mesh
+solutions that will already have a control plane implemented, whereas for other
+solutions, you have to brew your own.
+
+For more info on the service mesh, I recommend these blog posts:
+
+* [Introduction to modern network load balancing and proxying](https://blog.envoyproxy.io/introduction-to-modern-network-load-balancing-and-proxying-a57f6ff80236)
+* [Service mesh data plane vs. control plane](https://blog.envoyproxy.io/service-mesh-data-plane-vs-control-plane-2774e720f7fc)
+* [Pattern: Service Mesh](http://philcalcado.com/2017/08/03/pattern_service_mesh.html)
+
+### Tying it up with OpenStack/TripleO
+
+One of the features we did recently was enabling TLS everywhere for TripleO,
+and if I may say so... It was a big pain. First off we had the issue of every
+service doing TLS in their own way and having to configure (or even enable the
+configuration) them for each technology with all their own knobs and handles.
+Some services were even hard-coding 'http' in their endpoints, or were limited
+to just using IPs (not FQDNs). These are details and nits, but still stuff that
+you have to do and takes up time.
+
+The service mesh addresses this issue by allowing you to offload that to a
+proxy, which is where you configure TLS. So there is ONE way to set things up.
+Yes, it has its own knobs and handles, but at least there is only one set of
+knobs and handles to worry about.
+
+There's also the issue of getting an acceptable PKI with all the necessary
+features, as opposed to copying in a bunch of certificates and forgetting the
+rest. For this, in TripleO, we used FreeIPA (which I still think was a good
+choice).
+
+The way this is addressed by service mesh solutions depends on the
+implementation. Some solutions, such as Istio and Conduit, provide their own
+PKI solution, so you'll get TLS by default. In other implementations you have
+to provide your own. Given that we already have a chosen PKI, it shouldn't be
+too hard to take it into use for this purpose; although, Istio's PKI (the one
+that I checked out in the conference) is not pluggable yet.
+
+The proxy will also take care of metrics for you, so we could replace the
+OpenStack-specific OSProfiler and take that into use instead. This would give
+us more visibility on the overall OpenStack service performance, and help us
+identify bottle necks.
+
+Finally, a potential benefit would be to take the service-discovery and
+loadbalancing capabilities into use:
+
+* We could reduce the amount of hops through the network, since
+  service-to-service communication would no longer need to go through HAProxy
+  in all cases (Which is what happens when a service needs to talk to keystone,
+  for instance).
+
+* We could potentially deploy several versions of the same service at the same
+  time, and do a rolling-upgrade with relative ease thanks to the proxy
+  (Although this would only be possible for services using Oslo.Versioned
+  objects and with zero-downtime upgrades figured out).
+
+While this is not something we have in the timeline at the moment, I would like
+to investigate this approach further, as it seems to provide quite a lot of
+benefits.
