@@ -106,3 +106,63 @@ loadbalancing capabilities into use:
 While this is not something we have in the timeline at the moment, I would like
 to investigate this approach further, as it seems to provide quite a lot of
 benefits.
+
+Istio
+-----
+
+The first project that I had in mind tracking was Istio, which is a service
+mesh implementation that's been getting a lot of momentum lately. Istio uses
+Envoy as the default underlying proxy that does the actual heavy lifting, and
+provides several services for configuring, monitoring and securing your service
+mesh. They have their own CA component (that's is now called Citadel) which
+uses the SPIFFE specification to identify workloads and effectively give them
+certificates (more on SPIFFE later).
+
+There seems to be a lot of work on-going to make Istio's configuration easier,
+these enhancements include an API to self-configure Istio (instead of using
+Custom Resource Definitions). This API will hopefully also address the update
+issues they've been seeing, and also enable configuration rollbacks.
+
+Istio also handles policy for the mesh traffic. For this, there are two
+built-in policy adaptors: One based on Kubernetes' RBAC, and the other one
+based on Open Policy Agent (more on OPA later).
+
+Unfortunately, it seems that all the efforts are right now being placed on
+Kubernetes. So, if we would like to take Istio into there are several things we
+would need to work on first in order to have it address our needs:
+
+* Make the CA component extendible
+
+  - Currently the CA component is not extendible, so either we ditch our
+    FreeIPA solution, or we code the pluggability into "Citadel"
+
+* Make the CA auth customizable
+
+  - The built-in CA auth only take Kubernetes into account, so not only
+    would we need to get customizable auth policies into Istio, we would also
+    need to come up with relevant policies to assure that we're giving out
+    certs to the correct workloads/components.
+
+  - Right now we have some assurance that only specific hosts can request
+    certificates, and they can only do so for specific services. This all
+    thanks to FreeIPA's kerberos instance. We would need to add similar support
+    to Istio.
+
+* Make Istio run in environments that are not Kubernetes
+
+  - The current configuration and deployment scripts are only meant for
+    kubernetes. Making it run in other environments would require a significant
+    effort, as well as re-packaging of all the components.
+
+  - There are options to make Istio add VMs to the service mesh, but they still
+    require Kubernetes to be running somewhere, and is limited to Google Cloud
+    VMs. So this doesn't necessarily help us.
+
+Even though we could run Istio without some components to have an easier setup,
+It seems to me that adopting it would take a significant amount of effort and
+time, which we (or at least me) don't have.
+
+If we want to take the benefits of the service mesh into use in TripleO, it
+might be better to take a slower approach, and just take fewer components into
+use, instead of going with the full-blown solution. This lead me to take a
+deeper look into just using Envoy.
