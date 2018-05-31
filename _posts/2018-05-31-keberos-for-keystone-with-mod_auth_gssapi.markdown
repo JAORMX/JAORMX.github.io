@@ -199,6 +199,12 @@ openstack token issue --max-width 100
 +------------+-------------------------------------------------------------------------------------+
 {% endhighlight %}
 
+Thanks
+------
+
+Rob Crittenden sat down with me (virtually) to try to get this working. Thanks
+dude!
+
 Blogs I used as references
 --------------------------
 
