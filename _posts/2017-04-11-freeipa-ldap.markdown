@@ -41,6 +41,7 @@ parameter_defaults:
       user_enabled_attribute: nsAccountLock
       user_enabled_default: False
       user_enabled_invert: true
+      tls_cacertfile: /etc/ipa/ca.crt
 {% endhighlight %}
 
 We'll call this **freeipa-ldap-config.yaml**.
