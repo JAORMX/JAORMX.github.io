@@ -114,7 +114,6 @@ configuration in the `conf.d` directory:
         LogLevel debug
         AuthType GSSAPI
         AuthName "GSSAPI Login"
-        GssapiConnectionBound On
         GssapiCredStore keytab:/etc/keystone.keytab
         GssapiCredStore ccache:FILE:/var/run/keystone-krb5ccache
         GssapiLocalName On
