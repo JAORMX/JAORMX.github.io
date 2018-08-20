@@ -5,6 +5,18 @@ date:   2016-08-12 13:53:22 +0300
 categories: tripleo freeipa
 ---
 
+Before going forward
+====================
+
+It's important to note that this was the state of things in 2016, when I was
+developing this feature. This are no longer valid instructions, but serve and
+nice-to-know notes. If you want to use TLS everywhere with TripleO, it's been
+available since the Pike release, and
+[the instructions are here](http://tripleo.org/install/advanced_deployment/ssl.html#tls-everywhere-for-the-overcloud).
+
+Actual article...
+-----------------
+
 So I'm trying to get the overcloud nodes from TripleO to enroll to FreeIPA. And
 before having nice middleware that will do this through config-drive or
 something of the sort. I decided to setup a simple heat template that will do
