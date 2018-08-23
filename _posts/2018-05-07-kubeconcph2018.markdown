@@ -5,8 +5,7 @@ date:   2018-05-07 15:58:06 +0300
 categories: tripleo openstack kubernetes
 ---
 
-Kubecon/CloudNativeCon Europe CPH from an OpenStack/TripleO point of view
-=========================================================================
+#### Kubecon/CloudNativeCon Europe CPH from an OpenStack/TripleO point of view
 
 I recently had the opportunity to attend Kubecon/CloudNativeCon Europe in
 Copenhagen. Although the event was very Kubernetes oriented, I chose to focus

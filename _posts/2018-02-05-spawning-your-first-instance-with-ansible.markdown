@@ -5,9 +5,6 @@ date:   2018-02-05 12:50:57 +0200
 categories: openstack
 ---
 
-Spawning your first OpenStack instance with Ansible
-===================================================
-
 Great, so you got access to an OpenStack cloud, got your credentials ready, and
 even spawned a test instance through Horizon. Life is great! You're proud that
 you're finally getting the hang out of this OpenStack thingy.

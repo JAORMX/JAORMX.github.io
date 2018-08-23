@@ -5,9 +5,6 @@ date:   2018-08-23 10:06:55 +0300
 categories: tripleo openstack
 ---
 
-Configuration files in TripleO
-==============================
-
 There have been several ocasions where I've been asked where a file gets
 generated, or where does it come from in a TripleO deployment. Ideally this
 would be quite an easy thing to answer. However, more often than not, there is
