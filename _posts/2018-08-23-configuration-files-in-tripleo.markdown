@@ -255,13 +255,15 @@ barbican, we'll find the following in the barbican-api definition:
 
 {% highlight jinja2 %}
 ...
-       ... set barbican_api_packages = [
+{% raw %}
+       {% set barbican_api_packages = [
                 'httpd',
                 'mod_ssl',
                 'mod_wsgi',
                 'openstack-barbican-api',
                 'uwsgi-plugin-python'
-       ] ...
+       ] %}
+{% endraw %}
 ...
 {% endhighlight %}
 
