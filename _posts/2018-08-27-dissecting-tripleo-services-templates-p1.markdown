@@ -221,7 +221,8 @@ However, you might have noticed that the example I linked above has another
 section called ``host_prep_data``. This section is not mandatory, but it is one
 of the several ways you can execute Ansible tasks on the host in order to
 configure your service. These options powered by Ansible will be covered in the
-next part of this series.
+[next part of this series](
+{% post_url 2018-08-27-dissecting-tripleo-service-templates-p2 %}).
 
 Also note if the service is executing its configuration on bare-metal,
 ``step_config`` will execute in steps. So it's important that the puppet
