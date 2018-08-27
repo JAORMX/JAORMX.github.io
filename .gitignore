@@ -5,3 +5,5 @@ _site
 *.sublime-workspace
 .DS_Store
 *.pyc
+.bundle/*
+vendor/*
