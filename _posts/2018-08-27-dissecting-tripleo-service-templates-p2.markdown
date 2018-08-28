@@ -165,6 +165,7 @@ templates powered by Ansible. Please note that full support for "external
 deploy tasks" and "deploy steps tasks" came on the Rocky release; so this is
 not available for Queens.
 
-Finally, in the next part of the series, I'll describe all the relevant parts
-of the service template in order to deploy containerized services as
-implemented in TripleO.
+Finally, in the [next part of the series](
+{% post_url 2018-08-28-dissecting-tripleo-service-templates-p3 %}), I'll
+describe all the relevant parts of the service template in order to deploy
+containerized services as implemented in TripleO.
