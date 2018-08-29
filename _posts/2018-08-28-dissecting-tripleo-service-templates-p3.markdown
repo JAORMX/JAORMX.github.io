@@ -5,6 +5,22 @@ date:   2018-08-28 07:38:12 +0300
 categories: tripleo openstack
 ---
 
+In this series of blog posts, I've been covering all the different sections of
+the service templates for TripleO.
+
+To recap:
+
+* On the [first part](
+{% post_url 2018-08-27-dissecting-tripleo-service-templates-p1 %}) I covered
+the bare-minimum sections you need for your template.
+
+* On the [second part](
+{% post_url 2018-08-27-dissecting-tripleo-service-templates-p2 %}) I covered
+the sections that allow you to use Ansible to write and customize your service.
+
+This covers the sections that allow you to write a containerized service for
+TripleO.
+
 Containerized services brought a big change to TripleO. From packaging puppet
 manifests and relying on them for configuration, we now have to package
 containers, make sure the configuration ends up in the container somehow, then
