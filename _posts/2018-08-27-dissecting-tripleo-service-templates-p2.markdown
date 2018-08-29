@@ -19,8 +19,11 @@ there are three main bits in the deployment where Ansible is ran:
 
 * Deploy steps tasks (``deploy_steps_tasks`` in the templates)
 
-Lets describe these better:
+Please note that External deploy tasks and deploy step tasks are only available
+since the Rocky release. So, if you need to write templates for Queens, this is
+not yet available.
 
+Lets describe these better:
 
 Host prep deployment (or host prep tasks)
 =========================================
