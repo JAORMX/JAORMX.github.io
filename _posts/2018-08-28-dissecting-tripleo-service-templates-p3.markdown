@@ -133,7 +133,7 @@ There are several options we can pass here:
 
 * ``step_config``: Similarly to the ``step_config`` that I described in the
   [first blog post of this series](
-  {% post_url 2018-08-27-dissecting-tripleo-services-templates-p1 %}) this
+  {% post_url 2018-08-27-dissecting-tripleo-service-templates-p1 %}) this
   setting controls the puppet manifest that is ran for this service.
   The aforementioned puppet tags are used along with this manifest to generate
   a config directory for this container.

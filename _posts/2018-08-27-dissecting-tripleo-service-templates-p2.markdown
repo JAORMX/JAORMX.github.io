@@ -5,7 +5,7 @@ date:   2018-08-27 15:18:43 +0300
 categories: tripleo openstack
 ---
 In the [previous blog post](
-{% post_url 2018-08-27-dissecting-tripleo-services-templates-p1 %}) we covered
+{% post_url 2018-08-27-dissecting-tripleo-service-templates-p1 %}) we covered
 the bare-minimum pieces you need to create a service. It was also briefly
 mentioned that you can use Ansible in order to configure your service.
 

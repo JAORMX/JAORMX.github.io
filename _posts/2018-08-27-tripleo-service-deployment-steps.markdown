@@ -117,4 +117,4 @@ on in the deployment steps. If you want more in-depth knowledge about these
 steps, I'm also writing a services of blog posts that describe the service
 templates; which include way more detail. The series starts with a blog post
 describing the [minimal things you need for your service template](
-{% post_url 2018-08-27-dissecting-tripleo-services-templates-p1 %})
+{% post_url 2018-08-27-dissecting-tripleo-service-templates-p1 %})
