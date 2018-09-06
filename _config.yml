@@ -11,6 +11,9 @@ baseurl: '/'
 
 author: Juan Antonio Osorio Robles
 twitter_username: jaosorior
+twitter:
+  username: jaosorior
+  card: "AKA Ozz: Mexican Open Source Software developer; OpenStack, Beer, Heavy Metal & my beard."
 github_username:  JAORMX
 linkedin_username:  jaosorior
 google_analytics: UA-124742268-1
