@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Setting up Keberos for Keystone auth with mod_auth_gssapi"
+title:  "Setting up Kerberos for Keystone auth with mod_auth_gssapi"
 date:   2018-05-31 16:13:08 +0300
 categories: tripleo kerberos keystone openstack
 ---
