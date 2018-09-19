@@ -39,7 +39,7 @@ to add the following:
 Here, ``service_config_settings`` is used because we specifically want to add
 this hieradata to nodes that deploy haproxy.
 
-In this example, ``my_resource_name`` is the ``service_name`` from the service
+In this example, ``my_service_name`` is the ``service_name`` from the service
 template. It has to match in order for the resource to properly fill the
 ``ip_addresses`` and ``service_names`` parameters. Else, you'll have to
 manually set up the needed values to fill those parameters.
@@ -81,7 +81,48 @@ your application:
 From these, it is important to know that the certificates will be filled up for
 you, so you don't need to add them.
 
+Stein update
+============
+
+There are some services that need two or more endpoints, for these, it's not
+possible to make the endpoints' names match the ``service_name`` parameter. For
+these cases, I added the ``base_service_name`` parameter.
+
+By setting ``base_service_name`` to match the ``service_name`` of the service
+you want to load balance, the ``ip_addresses`` and the ``server_names``
+parameters will be filled out auto-magically. This makes it easier to add
+customized endpoints to load balance your service.
+
+Lets take an example from the following [patch][openshift-patch], which adds
+HAProxy endpoints to load balance OpenShift's infra endpoints. This adds two
+endpoints in HAProxy, which will listen on specific ports, and forward the
+traffic towards the nodes that contain the ``openshift_infra`` service.
+
+{% highlight yaml %}
+      service_config_settings:
+        haproxy:
+          tripleo::openshift_infra::haproxy_endpoints:
+            openshift-router-http:
+              base_service_name: openshift_infra
+              public_virtual_ip: "%{hiera('public_virtual_ip')}"
+              internal_ip: "%{hiera('openshift_infra_vip')}"
+              service_port: 80
+              listen_options:
+                balance: 'roundrobin'
+              member_options: [ 'check', 'inter 2000', 'rise 2', 'fall 5' ]
+              haproxy_listen_bind_param: ['transparent']
+            openshift-router-https:
+              base_service_name: openshift_infra
+              public_virtual_ip: "%{hiera('public_virtual_ip')}"
+              internal_ip: "%{hiera('openshift_infra_vip')}"
+              service_port: 443
+              listen_options:
+                balance: 'roundrobin'
+              member_options: [ 'check', 'inter 2000', 'rise 2', 'fall 5' ]
+              haproxy_listen_bind_param: ['transparent']
+{% endhighlight %}
+
 [haproxy-manifest]: https://github.com/openstack/puppet-tripleo/blob/master/manifests/haproxy.pp
 [dynamic-endpoints-commit]: https://review.openstack.org/#/c/474109/
 [endpoint-resource]: https://github.com/openstack/puppet-tripleo/blob/stable/rocky/manifests/haproxy/endpoint.pp
-
+[openshift-patch]: https://review.openstack.org/#/c/601241/11
