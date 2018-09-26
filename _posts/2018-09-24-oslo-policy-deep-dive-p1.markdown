@@ -386,6 +386,108 @@ information is passed as the API attributes and the target, you'll need to dig
 into the project's codebase and look for where the ``enforce`` or ``authorize``
 calls are made for the relevant policy rule you're looking for.
 
+Barbican example
+----------------
+
+Lets take Barbican as an example. If we look at the code-base, we can see that
+barbican enforces policy as part of a [common
+decorator][barbican-policy-decorator]. This decorator ends up calling the
+``_do_enforce_rbac`` [function][barbican-enforce-rbac-function] which, at the
+time of writing this, looks as follows:
+
+{% highlight python %}
+def _do_enforce_rbac(inst, req, action_name, ctx, **kwargs):
+    """Enforce RBAC based on 'request' information."""
+    if action_name and ctx:
+
+        # Prepare credentials information.
+        credentials = {
+            'roles': ctx.roles,
+            'user': ctx.user,
+            'project': ctx.project_id
+        }
+
+        # Enforce special case: secret GET decryption
+        if 'secret:get' == action_name and not is_json_request_accept(req):
+            action_name = 'secret:decrypt'  # Override to perform special rules
+
+        target_name, target_data = inst.get_acl_tuple(req, **kwargs)
+        policy_dict = {}
+        if target_name and target_data:
+            policy_dict['target'] = {target_name: target_data}
+
+        policy_dict.update(kwargs)
+        # Enforce access controls.
+        if ctx.policy_enforcer:
+            ctx.policy_enforcer.enforce(action_name, flatten(policy_dict), credentials, do_raise=True)
+{% endhighlight %}
+
+Here we can see that the credentials are derived from the ``oslo.context``
+object; which contains information about the user that's making the request.
+
+Preferrably, barbican should instead pass the ``oslo.context`` object and let
+``oslo.policy`` derive the needed parameters from that object. Although for
+this, the default policy will need to be adjusted to match the names: e.g.
+``project_id`` instead of just ``project``.
+
+Subsequently, depending on the class that calls this, we'll get the appropriate
+information about the target object from the ``get_acl_tuple`` function.
+
+If we're dealing with [secrets][barbican-secrets-acl-function], we can see how
+the target is filled up:
+
+{% highlight python %}
+class SecretController(controllers.ACLMixin):
+    """Handles Secret retrieval and deletion requests."""
+
+    def __init__(self, secret):
+        LOG.debug('=== Creating SecretController ===')
+        self.secret = secret
+        self.transport_key_repo = repo.get_transport_key_repository()
+
+    def get_acl_tuple(self, req, **kwargs):
+        d = self.get_acl_dict_for_user(req, self.secret.secret_acls)
+        d['project_id'] = self.secret.project.external_id
+        d['creator_id'] = self.secret.creator_id
+        return 'secret', d
+{% endhighlight %}
+
+Note that the target's ``project_id`` and ``creator_id`` is derived from the
+secret that the user is trying to access. We also query the ACL's to get extra
+information about the access that the user might have on the secret.
+
+So, for barbican, the target map will look as follows:
+
+{% highlight json %}
+{
+    "target": {
+        "<entity>": {
+            # actual target data
+            ...
+        }
+    }
+}
+{% endhighlight %}
+
+For secrets, it would be:
+
+{% highlight json %}
+{
+    "target": {
+        "secret": {
+            "project_id": "<some id>",
+            "creator_id": "<some other id>",
+            ...
+        }
+    }
+}
+{% endhighlight %}
+
+I would like to point out once more that the target map structure is highly
+dependant on the project. So, if you're dealing with another project, you'll
+need to dig into that code to know how the project fills it up. But at least
+now you know what to look for :) .
+
 Conclusion
 ==========
 
@@ -402,3 +504,6 @@ to reflect them on a running service.
 [enforce-method]: https://docs.openstack.org/oslo.policy/latest/reference/api/oslo_policy.policy.html#oslo_policy.policy.Enforcer.enforce
 [authorize-method]: https://docs.openstack.org/oslo.policy/latest/reference/api/oslo_policy.policy.html#oslo_policy.policy.Enforcer.authorize
 [policy-context-rev]: https://review.openstack.org/#/c/534440/
+[barbican-policy-decorator]: https://github.com/openstack/barbican/blob/stable/rocky/barbican/api/controllers/__init__.py#L75
+[barbican-enforce-rbac-function]: https://github.com/openstack/barbican/blob/stable/rocky/barbican/api/controllers/__init__.py#L48
+[barbican-secrets-acl-function]: https://github.com/openstack/barbican/blob/stable/rocky/barbican/api/controllers/secrets.py#L82
