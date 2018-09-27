@@ -494,8 +494,9 @@ Conclusion
 Here we learned what oslo.policy is, how to write policies with it, and how to
 get the relevant information on how the policy is called for specific projects.
 
-In the next blog post, we'll learn how to do modifications to policies and how
-to reflect them on a running service.
+In the [next blog post](
+{% post_url 2018-09-26-oslo-policy-deep-dive-p2 %}), we'll learn how to do
+modifications to policies and how to reflect them on a running service.
 
 [summit-berlin]: https://www.openstack.org/summit/berlin-2018
 [policy-talk]: https://www.openstack.org/summit/berlin-2018/summit-schedule/events/21977/openstack-policy-101
