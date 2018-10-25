@@ -114,7 +114,7 @@ To test that the image was built correctly and you can run barbican, execute
 the following:
 
 {% highlight bash %}
-./run-barbican-simple.sh
+./0-run-barbican-simple.sh
 {% endhighlight %}
 
 You will notice barbican is running, and can see the name of its container with
@@ -217,7 +217,7 @@ of the ``observer`` role:
 
 {% highlight bash %}
 # Run the container
-./run-barbican-with-reader-role.sh
+./1-run-barbican-with-reader-role.sh
 
 # Create a sample secret
 ./create-secret.sh
@@ -260,7 +260,7 @@ role:
 
 {% highlight bash %}
 # run the container
-./run-barbican-without-audit-policy.sh
+./2-run-barbican-without-audit-policy.sh
 
 # create a secret
 ./create-secret.sh
@@ -308,7 +308,7 @@ use. We'll log into it, modify the policy.json file, and test out the results.
 
 {% highlight bash %}
 # Run the container
-./run-barbican-simple.sh
+./0-run-barbican-simple.sh
 
 # Open a bash session in the container
 docker exec -ti (docker ps | grep barbican-minimal | awk '{print $1}') bash
@@ -408,7 +408,7 @@ use. We'll log into it, modify the policy.json file, and test out the results.
 
 {% highlight bash %}
 # Run the container
-./run-barbican-simple.sh
+./0-run-barbican-simple.sh
 
 # Open a bash session in the container
 docker exec -ti (docker ps | grep barbican-minimal | awk '{print $1}') bash
