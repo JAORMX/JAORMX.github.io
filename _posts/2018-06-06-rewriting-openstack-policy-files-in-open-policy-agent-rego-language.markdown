@@ -124,7 +124,7 @@ We'll also add a way to map the inputs coming from the `enforce` call:
 
 {% highlight go %}
 import input.credentials as credentials
-import input.action_name as action_name
+import input.rule as rule
 import input.target as target
 {% endhighlight %}
 
@@ -135,7 +135,7 @@ JSON will look as follows:
 {
     "input": {
         "credentials": ...
-        "action_name": ...
+        "rule": ...
         "target": ...
     }
 }
@@ -154,7 +154,7 @@ So, with the current configuration, we can do a query as follows:
 
 {% highlight bash %}
 curl -X POST "http://<OPA URL>/v1/data/openstack/policy/allow" \
-    --data '{"input": {"credentials": {}, "target": {}, "action_name": ""}}' \
+    --data '{"input": {"credentials": {}, "target": {}, "rule": ""}}' \
     -H 'Content-Type: application/json'
 {% endhighlight %}
 
@@ -325,7 +325,7 @@ translate it:
 
 {% highlight go %}
 allow {
-    action_name = "secrets:get"
+    rule = "secrets:get"
     all_but_audit
 }
 {% endhighlight %}
@@ -361,7 +361,7 @@ So, for a successful listing of secrets, lets define the following input:
 {% highlight json %}
 {
     "input": {
-        "action_name": "secrets:get",
+        "rule": "secrets:get",
         "credentials": {
             "roles": ["creator"]
         },
@@ -395,7 +395,7 @@ Now lets try with the `audit` role. The input would look as follows:
 {% highlight json %}
 {
     "input": {
-        "action_name": "secrets:get",
+        "rule": "secrets:get",
         "credentials": {
             "roles": ["audit"]
         },
