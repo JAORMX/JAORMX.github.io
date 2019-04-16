@@ -41,7 +41,7 @@ def get_rendered_content(title):
     context = {
         'title': title,
         'current_day': get_current_day(),
-        'categories': "tripleo openstack"
+        'categories': "openshift"
     }
     return template_environment.get_template(POST_TEMPLATE).render(context)
 
