@@ -243,7 +243,9 @@ The SELinux/Udica team has made an awesome job of the tool and it is quite
 functional already. However, if you want a more automated flow (Automate
 everything!), e.g. to use Udica directly on your Kubernetes deployment as part
 of your CI. The current state of things makes it hard for such a use-case. This
-is something I'll talk about in another blog post, as well as a potential
+is something I'll talk about in another
+[blog post]({% post_url 2019-09-20-integrating-udica-into-the-kubernetes-workflow %}),
+as well as a potential
 solution for this.
 
 [podsecuritycontext]: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.16/#podsecuritycontext-v1-core
