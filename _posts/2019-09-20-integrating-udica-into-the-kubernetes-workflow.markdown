@@ -55,6 +55,8 @@ metadata:
 
 And here's the operator in action:
 
+{% include selinux-policy-helper-operator-demo.html %}
+
 This operator uses udica to genenerate the aforementioned policy. Currently,
 the udica from the pod has a set of additions:
 
