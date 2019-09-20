@@ -2,7 +2,7 @@
 layout: post
 title:  "SELinux, kubernetes & Udica"
 date:   2019-09-20 09:59:39 +0300
-categories: openshift selinux kubernetes k8s
+categories: openshift selinux kubernetes k8s udica
 ---
 
 So, you have your service written and everything seems to be working. You did a
