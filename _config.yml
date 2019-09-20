@@ -31,8 +31,10 @@ kramdown:
   hard_wrap: false
 
 plugins:
+- 'jekyll-feed'
 - 'jekyll-paginate'
 - 'jekyll-seo-tag'
+- 'jekyll-asciinema'
 exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png', 'create_post.py', 'templates', 'vendor']
 
 theme: jekyll-theme-hacker
