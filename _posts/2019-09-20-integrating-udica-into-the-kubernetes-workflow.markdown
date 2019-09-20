@@ -55,8 +55,6 @@ metadata:
 
 And here's the operator in action:
 
-{% asciicast 269299 %}
-
 This operator uses udica to genenerate the aforementioned policy. Currently,
 the udica from the pod has a set of additions:
 
