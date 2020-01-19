@@ -18,6 +18,8 @@ github_username:  JAORMX
 linkedin_username:  jaosorior
 google_analytics: UA-124742268-1
 
+image: /images/cup.jpg
+
 # Build settings
 paginate: 10
 permalink: /:year/:title/
