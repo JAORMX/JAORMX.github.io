@@ -3,6 +3,7 @@ layout: post
 title:  "Configuration files in TripleO"
 date:   2018-08-23 10:06:55 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 There have been several ocasions where I've been asked where a file gets

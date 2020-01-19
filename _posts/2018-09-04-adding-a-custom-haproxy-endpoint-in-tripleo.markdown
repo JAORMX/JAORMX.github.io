@@ -3,6 +3,7 @@ layout: post
 title:  "Adding a custom HAProxy endpoint in TripleO"
 date:   2018-09-04 16:07:19 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 Typically, when you want to add a new service to TripleO, there's a bunch of

@@ -3,6 +3,7 @@ layout: post
 title:  "Changing the SSL cypher and rules for TripleO's HAProxy"
 date:   2016-10-14 14:31:48 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 To change the ssl cipher and TLS rules for TripleO's HAProxy, one needs to set

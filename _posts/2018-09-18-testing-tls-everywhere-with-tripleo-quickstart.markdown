@@ -3,6 +3,7 @@ layout: post
 title:  "Testing TLS everywhere with tripleo-quickstart"
 date:   2018-09-18 08:50:33 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 I've gotten the request for help deploying TLS everywhere with TripleO several

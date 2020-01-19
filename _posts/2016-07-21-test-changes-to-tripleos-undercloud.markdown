@@ -3,6 +3,7 @@ layout: post
 title:  "Test changes to TripleO's undercloud"
 date:   2016-07-21 14:31:35 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 In a [previous post][post] I covered how to make changes in puppet-tripleo and
 test them in the undercloud. However, I now realized that making changes to the

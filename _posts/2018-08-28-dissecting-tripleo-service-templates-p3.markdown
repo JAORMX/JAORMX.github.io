@@ -3,6 +3,7 @@ layout: post
 title:  "Dissecting TripleO service templates (part 3)"
 date:   2018-08-28 07:38:12 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 In this series of blog posts, I've been covering all the different sections of

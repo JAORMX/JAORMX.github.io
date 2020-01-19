@@ -3,6 +3,7 @@ layout: post
 title:  "Testing containerized OpenStack services with kolla"
 date:   2017-03-20 15:15:47 +0200
 categories: kolla openstack
+image: /images/cup.jpg
 ---
 
 Note that the following instructions are for Fedora 25 as that's what I'm

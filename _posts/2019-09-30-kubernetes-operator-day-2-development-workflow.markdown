@@ -3,6 +3,7 @@ layout: post
 title:  "Kubernetes operator day 2 development workflow"
 date:   2019-09-30 08:13:10 +0300
 categories: openshift kubernetes
+image: /images/cup.jpg
 ---
 
 There are plenty of blog posts about how to create a Kubernetes operator or

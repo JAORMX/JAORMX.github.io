@@ -3,6 +3,7 @@ layout: post
 title:  "Using FreeIPA SubCAs"
 date:   2018-01-10 12:14:46 +0200
 categories: freeipa
+image: /images/cup.jpg
 ---
 
 Using lightweight CAs in FreeIPA is quite straight forward.

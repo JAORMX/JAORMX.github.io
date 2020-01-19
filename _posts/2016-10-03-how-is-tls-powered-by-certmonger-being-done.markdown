@@ -3,6 +3,7 @@ layout: post
 title:  "How is TLS powered by certmonger being done"
 date:   2016-10-03 08:36:04 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 I've been working on trying to get TLS everywhere for TripleO. And, while not

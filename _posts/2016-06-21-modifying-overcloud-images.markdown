@@ -3,6 +3,7 @@ layout: post
 title:  "Modifying Your Overcloud Images"
 date:   2016-06-21 14:43:03 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 It has been the case several times where I have done a change in a puppet

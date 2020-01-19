@@ -3,6 +3,7 @@ layout: post
 title:  "Uploading container images to your openshift registry"
 date:   2019-04-17 13:47:14 +0300
 categories: openshift
+image: /images/cup.jpg
 ---
 
 I recently started exploring OpenShift, and while I did find the concept of

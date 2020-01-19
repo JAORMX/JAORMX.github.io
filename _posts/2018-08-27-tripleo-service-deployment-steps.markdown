@@ -3,6 +3,7 @@ layout: post
 title:  "TripleO service deployment steps"
 date:   2018-08-27 14:28:08 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 TripleO does a lot of things in the whole deployment process, from setting up

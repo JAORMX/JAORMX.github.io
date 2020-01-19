@@ -3,6 +3,7 @@ layout: post
 title:  "Deploying a TLS everywhere environment with oooq and an existing FreeIPA server"
 date:   2017-02-21 10:04:00 +0200
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 As an attempt to make the "TLS everywhere" bits more usable and easier for

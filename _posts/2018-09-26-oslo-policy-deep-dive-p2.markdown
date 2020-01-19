@@ -3,6 +3,7 @@ layout: post
 title:  "Oslo Policy Deep Dive (part 2)"
 date:   2018-09-26 17:01:27 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 In the [previous blog post](

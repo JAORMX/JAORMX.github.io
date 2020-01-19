@@ -3,6 +3,7 @@ layout: post
 title:  "Using FreeIPA as an LDAP domain backend for keystone in TripleO"
 date:   2017-04-11 10:16:09 +0300
 categories: tripleo freeipa openstack
+image: /images/cup.jpg
 ---
 
 Configuring FreeIPA to be the backend of a keystone domain is pretty simple

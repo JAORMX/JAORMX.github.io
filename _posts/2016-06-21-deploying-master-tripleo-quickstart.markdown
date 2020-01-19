@@ -3,6 +3,7 @@ layout: post
 title:  "Deploying latest TripleO using TripleO-quickstart"
 date:   2016-06-21 10:13:03 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 ### Preface (you may skip this)

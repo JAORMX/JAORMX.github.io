@@ -3,6 +3,7 @@ layout: post
 title:  "FreeIPA TripleO integration notes"
 date:   2016-08-12 13:53:22 +0300
 categories: tripleo freeipa
+image: /images/cup.jpg
 ---
 
 Before going forward

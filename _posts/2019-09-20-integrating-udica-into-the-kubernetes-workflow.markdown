@@ -3,6 +3,7 @@ layout: post
 title:  "Integrating Udica into the Kubernetes workflow"
 date:   2019-09-20 14:34:47 +0300
 categories: openshift udica kubernetes k8s selinux
+image: /images/cup.jpg
 ---
 
 In a [previous blog post]({% post_url 2019-09-20-selinux-and-kubernetes %}) I

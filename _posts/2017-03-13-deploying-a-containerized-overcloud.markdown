@@ -3,6 +3,7 @@ layout: post
 title:  "Deploying a containerized overcloud"
 date:   2017-03-13 17:55:32 +0200
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 Deploying a containerized overcloud is a matter of adding the

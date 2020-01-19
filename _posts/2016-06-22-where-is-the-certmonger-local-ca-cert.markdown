@@ -3,6 +3,7 @@ layout: post
 title:  "Where is the certmonger local CA cert?"
 date:   2016-06-22 14:13:03 +0300
 categories: tripleo certmonger
+image: /images/cup.jpg
 ---
 
 _There is a TLDR in the end._

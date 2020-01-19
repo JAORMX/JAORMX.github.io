@@ -3,6 +3,7 @@ layout: post
 title:  "Run ansible playbook on TripleO nodes"
 date:   2017-05-10 09:22:13 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 Running an ansible playbook on TripleO nodes is fairly simple thanks to the

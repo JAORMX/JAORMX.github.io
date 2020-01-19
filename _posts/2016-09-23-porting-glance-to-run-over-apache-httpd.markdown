@@ -3,6 +3,7 @@ layout: post
 title:  "Porting Glance to run over Apache HTTPd"
 date:   2016-09-23 09:03:47 +0300
 categories: openstack
+image: /images/cup.jpg
 ---
 
 In the quest of getting TLS everywhere in TripleO, with a bunch of

@@ -3,6 +3,7 @@ layout: post
 title:  "Testing TLS with Nova live migration"
 date:   2017-04-05 09:48:24 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 As part of the TLS everywhere work, I've been working on getting Nova's live

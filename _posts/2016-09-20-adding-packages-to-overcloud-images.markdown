@@ -3,6 +3,7 @@ layout: post
 title:  "Adding packages to overcloud images"
 date:   2016-09-20 12:11:15 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 If you don't want to re-build your overcloud images and need an extra package,

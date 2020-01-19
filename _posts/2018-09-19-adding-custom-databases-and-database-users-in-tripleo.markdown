@@ -3,6 +3,7 @@ layout: post
 title:  "Adding custom databases and database users in TripleO"
 date:   2018-09-19 07:50:22 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 For folks integrating with TripleO, it has been quite painful to always need to

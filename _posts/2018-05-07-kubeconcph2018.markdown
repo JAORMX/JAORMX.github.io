@@ -3,6 +3,7 @@ layout: post
 title:  "Kubecon Copenhagen 2018"
 date:   2018-05-07 15:58:06 +0300
 categories: tripleo openstack kubernetes
+image: /images/cup.jpg
 ---
 
 #### Kubecon/CloudNativeCon Europe CPH from an OpenStack/TripleO point of view

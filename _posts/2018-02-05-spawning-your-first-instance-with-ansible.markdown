@@ -3,6 +3,7 @@ layout: post
 title:  "Spawning your first OpenStack instance with Ansible"
 date:   2018-02-05 12:50:57 +0200
 categories: openstack
+image: /images/cup.jpg
 ---
 
 Great, so you got access to an OpenStack cloud, got your credentials ready, and

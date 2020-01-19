@@ -3,6 +3,7 @@ layout: post
 title:  "Rewriting OpenStack policy files in Open Policy Agent's Rego language"
 date:   2018-06-06 13:13:12 +0300
 categories: openstack open-policy-agent opa
+image: /images/cup.jpg
 ---
 
 I recently started experimenting with Open Policy Agent, and decided to test

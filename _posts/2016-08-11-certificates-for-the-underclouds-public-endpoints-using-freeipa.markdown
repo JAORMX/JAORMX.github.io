@@ -3,6 +3,7 @@ layout: post
 title:  "Certificates for the undercloud's public endpoints using FreeIPA"
 date:   2016-08-11 13:59:48 +0300
 categories: tripleo freeipa
+image: /images/cup.jpg
 ---
 TripleO's undercloud has the option to auto-generate certificates for its
 public endpoints (hopefully soon I'll add the same option for the admin and

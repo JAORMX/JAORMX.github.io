@@ -3,6 +3,7 @@ layout: post
 title:  "SELinux as a resource in Kubernetes"
 date:   2019-12-22 18:45:44 +0000
 categories: openshift kubernetes udica selinux
+image: /images/cup.jpg
 ---
 
 It's not a new thing that you can (since a while ago) configure the SELinux

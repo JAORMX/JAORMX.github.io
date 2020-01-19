@@ -3,6 +3,7 @@ layout: post
 title:  "Dissecting TripleO service templates (part 1)"
 date:   2018-08-27 14:31:40 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 The purpose of this blog post is to dissect TripleO service templates and

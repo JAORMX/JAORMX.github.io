@@ -3,6 +3,7 @@ layout: post
 title:  "Oslo Policy Deep Dive (part 1)"
 date:   2018-09-24 13:29:30 +0300
 categories: openstack policy
+image: /images/cup.jpg
 ---
 
 In the upcoming [OpenStack Summit in Berlin][summit-berlin] we have submitted a

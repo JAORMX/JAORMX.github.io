@@ -3,6 +3,7 @@ layout: post
 title:  "Testing out the TLS everywhere patches for TripleO"
 date:   2016-10-05 13:14:51 +0300
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 With the TLS-everywhere (powered by certmonger) patches accumulating in gerrit.

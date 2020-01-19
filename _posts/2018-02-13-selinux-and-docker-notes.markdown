@@ -3,6 +3,7 @@ layout: post
 title:  "SELinux and docker notes"
 date:   2018-02-13 13:13:59 +0200
 categories: docker selinux
+image: /images/cup.jpg
 ---
 
 SELinux and docker notes

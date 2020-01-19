@@ -3,6 +3,7 @@ layout: post
 title:  "TripleO Denver 2018 PTG notes"
 date:   2018-09-14 15:04:21 -0600
 categories: tripleo openstack
+image: /images/cup.jpg
 ---
 
 I recently had the opportunity to attend the OpenStack PTG at Denver. It's

@@ -3,6 +3,7 @@ layout: post
 title:  "Modifying node configurations in OpenShift 4.X"
 date:   2019-04-29 12:56:52 +0300
 categories: openshift
+image: /images/cup.jpg
 ---
 
 OpenShift 4.X relies heavily on operators in order to configure... just about
