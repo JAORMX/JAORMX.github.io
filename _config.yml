@@ -1,8 +1,8 @@
 # Site settings
 title: Ozznotes
 description: >
-  This is a blog with random OpenStack and Linux related notes so I don't
-  forget things.
+  This is a blog with random OpenShift, Kubernetes, OpenStack and Linux related
+  notes so I don't forget things.
 
   If you find something inaccurate or that could be fixed, please file a bug
   report <a href='https://github.com/JAORMX/JAORMX.github.io/issues'>here.</a>
