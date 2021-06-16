@@ -21,9 +21,9 @@ clusters.
 
 With this in mind, today, we’ll scan our cluster and ensure we’re compliant with the controls inspired by the CIS Kubernetes benchmark. Let’s begin!
 
-# Installing the operator
+# Using the operator
 
-
+Assuming you installed the operator from OperatorHub, consider the following:
 
 
 1.  Make sure you’re in the operator’s recommended namespace. In the terminal, do:
