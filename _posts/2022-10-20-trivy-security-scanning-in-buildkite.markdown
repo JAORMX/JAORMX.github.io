@@ -112,6 +112,25 @@ Note that you didn't have to tell the Trivy plugin what image tag to scan.
 It can already detect that `docker-metadata` is being used and read the
 appropriate label(s) to scan.
 
+## Status
+
+If all goes well, you should see the following in the Buildkite UI:
+
+![Trivy buildkite plugin status](/images/trivy/trivystatus.png)
+
+You may also see all the detail in the Buildkite job logs:
+
+![Trivy buildkite plugin logs](/images/trivy/trivybklogs.png)
+
+## What's next?
+
+We'd like to more easily distribute this to new repositories and new teams
+by providing more examples, and even including this in a central [Buildkite dynamic
+pipeline](https://buildkite.com/docs/pipelines/defining-steps#dynamic-pipelines).
+
+We'd like this to be as frictionless as possible, so that teams can just start
+using it without having to do much work.
+
 # Conclusion
 
 Scanning your containers and repositories has never been this easy!
