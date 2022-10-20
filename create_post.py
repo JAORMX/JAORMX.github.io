@@ -28,8 +28,7 @@ def get_file_path(formatted_title):
 
 
 def get_current_day():
-    local_tz = datetime.tzinfo.tzlocal()
-    current_day = datetime.datetime.now(local_tz)
+    current_day = datetime.datetime.now()
     return str(current_day.date()) + current_day.strftime(" %X %z")
 
 
