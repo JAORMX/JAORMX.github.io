@@ -6,7 +6,7 @@ categories: trivy security buildkite
 ---
 
 It's not secret that I'm a big fan of the new open source vulnerability scanners.
-Namely, I've been rolling out scanning everything with [Trivy from Aqua
+Namely, We've been rolling out scanning everything with [Trivy from Aqua
 Security](https://aquasecurity.github.io/trivy): From repositories to container images,
 and even Kubernetes clusters! It certainly is a Swiss-army knife for security scanning.
 
