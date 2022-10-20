@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Trivy security scanning in Buildkite"
-date:   2022-10-20 13:18:24 
+date:   2022-10-20 13:18:24  +0300
 categories: trivy security buildkite
 ---
 
