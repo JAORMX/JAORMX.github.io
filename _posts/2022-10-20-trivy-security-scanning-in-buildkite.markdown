@@ -5,8 +5,6 @@ date:   2022-10-20 13:18:24  +0300
 categories: trivy security buildkite
 ---
 
-# Trivy security scanning in Buildkite
-
 It's not secret that I'm a big fan of the new vulnerability open source vulnerability scanners.
 Namely, I've been rolling out scanning everything with [Trivy from Aqua
 Security](https://aquasecurity.github.io/trivy): From repositories to container images,
