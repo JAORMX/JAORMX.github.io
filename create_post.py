@@ -41,7 +41,7 @@ def get_rendered_content(title):
     context = {
         'title': title,
         'current_day': get_current_day(),
-        'categories': "openshift",
+        'categories': "kubernetes",
         'image': "/images/cup.jpg"
     }
     return template_environment.get_template(POST_TEMPLATE).render(context)
